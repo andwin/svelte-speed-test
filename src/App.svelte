@@ -5,6 +5,35 @@
   let requestsToSend: string = '10'
   const simultaneousRequests = 4
 
+  const loadDataFromUrl = () => {
+    const url = new URL(window.location.toString())
+    const params = new URLSearchParams(url.search)
+    const baseUrlParam = params.get('baseUrl')
+    const urlsParam = params.get('urls')
+    const requestsToSendParam = params.get('requestsToSend')
+
+    if (baseUrlParam) {
+      baseUrl = baseUrlParam
+    }
+    if (urlsParam) {
+      urlsText = urlsParam
+    }
+    if (requestsToSendParam) {
+      requestsToSend = requestsToSendParam
+    }
+  }
+  loadDataFromUrl()
+
+  const saveDataToUrl = () => {
+    const url = new URL(window.location.toString())
+    const params = new URLSearchParams(url.search)
+    params.set('baseUrl', baseUrl)
+    params.set('urls', urlsText)
+    params.set('requestsToSend', requestsToSend)
+    window.history.replaceState(null, '', window.location.pathname + '?' + params.toString())
+  }
+  $: baseUrl, urlsText, requestsToSend, saveDataToUrl()
+
   type Request = {
     start: number
     promise: Promise<any>
