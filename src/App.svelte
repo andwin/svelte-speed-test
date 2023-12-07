@@ -1,6 +1,6 @@
 <script lang="ts">
   let baseUrl: string = 'https://www.example.com'
-  let urlsText: string = ''
+  let urlsText: string = '/'
 
   let requestsToSend: string = '10'
   const simultaneousRequests = 4
